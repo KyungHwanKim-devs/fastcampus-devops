@@ -2,10 +2,16 @@ provider "aws" {
   region = "ap-northeast-2"
 }
 
+# 환경변수 주입 확인
+# export 
+# unset
+# terraform apply -var-file=test.tfvars
+# 자동적용 => test.auto.tfvars 로 바꾸면 자동
+# terraform apply -var="vpc_name=fastcampus"
 variable "vpc_name" {
   description = "생성되는 VPC의 이름"
   type        = string
-  default     = "default"
+  # default     = "Default"
 }
 
 locals {
@@ -25,7 +31,7 @@ output "vpc_id" {
 
 output "vpc_cidr" {
   description = "생성된 VPC의 CIDR 영역"
-  value = module.vpc.cidr_block
+  value       = module.vpc.cidr_block
 }
 
 output "subnet_groups" {
@@ -39,8 +45,8 @@ module "vpc" {
   source  = "tedilabs/network/aws//modules/vpc"
   version = "0.24.0"
 
-  name                  = var.vpc_name
-  cidr_block            = "10.0.0.0/16"
+  name       = var.vpc_name
+  cidr_block = "10.0.0.0/16"
 
   internet_gateway_enabled = true
 
