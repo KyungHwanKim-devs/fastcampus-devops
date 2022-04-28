@@ -1,8 +1,13 @@
+# 테라폼 클라우드랑, s3 를 가장 많이씀
+# Locking 기능이 중요 -> s3는 제공 ㄴㄴ, dynamoDB 쓸때만 있음
+# 로컬에서는 개인작업만
+# 리모트 스테이트 -> 여러명이 작업하면 동시성 문제가 발생 Locking 필요
+
 terraform {
   backend "s3" {
-    bucket = "fastcampus-devops-terraform"
+    bucket = "fastcampus-devops-terraform-kkh" # 글로벌 유니크
     key    = "s3-backend/terraform.tfstate"
-    region = "ap-northeast-2"
+    region = "ap-northeast-2" # 버킷이 위치한 리젼
   }
 }
 
