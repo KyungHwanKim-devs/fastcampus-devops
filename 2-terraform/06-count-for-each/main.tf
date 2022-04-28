@@ -1,9 +1,10 @@
+# 프로바이더를 AWS로 설정
 provider "aws" {
   region = "ap-northeast-2"
 }
 
 /*
- * No count / for_each
+ * No count / for_each 반복문 없이 각각 부여
  */
 resource "aws_iam_user" "user_1" {
   name = "user-1"
@@ -27,7 +28,7 @@ output "user_arns" {
 
 
 /*
- * count
+ * count 를 이용한 반복문
  */
 
 resource "aws_iam_user" "count" {
@@ -36,13 +37,19 @@ resource "aws_iam_user" "count" {
   name = "count-user-${count.index}"
 }
 
-output "count_user_arns" {
-  value = aws_iam_user.count.*.arn
+# variables 파일은 이용한 데이터 참조 이용
+resource "aws_iam_user" "ex" {
+  count = length(var.user_names)
+
+  name = element(var.user_names, count.index)
 }
 
+output "count_user_arns" {
+  value = [aws_iam_user.ex.*.arn, aws_iam_user.count.*.arn]
+}
 
 /*
- * for_each
+ * for_each 반복문
  */
 
 resource "aws_iam_user" "for_each_set" {
@@ -52,6 +59,7 @@ resource "aws_iam_user" "for_each_set" {
     "for-each-set-user-3",
   ])
 
+  # for_each 쓰면 블록 안에서 each.key, each.value 사용 가능
   name = each.key
 }
 
@@ -62,15 +70,15 @@ output "for_each_set_user_arns" {
 resource "aws_iam_user" "for_each_map" {
   for_each = {
     alice = {
-      level = "low"
+      level   = "low"
       manager = "posquit0"
     }
     bob = {
-      level = "mid"
+      level   = "mid"
       manager = "posquit0"
     }
     john = {
-      level = "high"
+      level   = "high"
       manager = "steve"
     }
   }
