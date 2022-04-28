@@ -14,6 +14,8 @@ variable "vpc_name" {
   # default     = "Default"
 }
 
+
+# 로컬변수
 locals {
   common_tags = {
     Project = "Network"
