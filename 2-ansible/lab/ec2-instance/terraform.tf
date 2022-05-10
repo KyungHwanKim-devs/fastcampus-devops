@@ -1,10 +1,10 @@
 terraform {
   backend "remote" {
     hostname     = "app.terraform.io"
-    organization = "fastcampus-devops"
+    organization = "fastcampus-devops-kkh"
 
     workspaces {
-      name = "terraform-lab-openvpn"
+      name = "terraform-lab-network"
     }
   }
 }

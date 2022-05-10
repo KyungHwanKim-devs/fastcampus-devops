@@ -9,6 +9,7 @@ packer {
   }
 }
 
+
 source "amazon-ebs" "ubuntu" {
   ami_name      = "fastcampus-packer"
   instance_type = "t2.micro"
