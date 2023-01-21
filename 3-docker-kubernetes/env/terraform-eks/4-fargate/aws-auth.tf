@@ -9,3 +9,4 @@ module "aws_auth" {
   map_users    = []
   map_accounts = []
 }
+

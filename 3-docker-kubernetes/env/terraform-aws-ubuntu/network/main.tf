@@ -1,7 +1,7 @@
 locals {
   common_tags = {
     Project = "Network"
-    Owner   = "posquit0"
+    Owner   = "kkhdevs"
   }
 }
 
@@ -14,8 +14,8 @@ module "vpc" {
   source  = "tedilabs/network/aws//modules/vpc"
   version = "0.24.0"
 
-  name                  = local.config.vpc.name
-  cidr_block            = local.config.vpc.cidr
+  name       = local.config.vpc.name
+  cidr_block = local.config.vpc.cidr
 
   internet_gateway_enabled = true
 
